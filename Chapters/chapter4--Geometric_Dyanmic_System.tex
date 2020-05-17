@@ -1,0 +1,253 @@
+\chapter{Geometric Dynamic System}
+\section{Definition}
+In this chapter, we will introduce a new type of dynamic system called GDS (Geometric Dynamic System). In RMPflow, each RMP $(\ab, \Mb)^{\mathcal{X}}$ is corresponds to a GDS. We define GDS as follows:
+
+We define a new family of dynamics useful to specify RMPs on manifolds. 
+%, which are useful to specify RMPs on the leaf nodes in \flow. 
+Let manifold $\MM$ be $m$-dimensional with chart $(\MM, \x)$. Let $\Gb: \R^m \times \R^m \to \R^{m\times m}_{+}$, $\B: \R^m \times \R^m \to \R^{m\times m}_{+}$, and $\Phi: \R^m \to \R$.
+The tuple $(\MM, \Gb, \B, \Phi)$ is called a \emph{GDS} if and only if
+\begin{align} \label{eq:GDS}
+\left(\Gb(\x,\xd) + \bm\Xi_{\Gb}(\x,\xd)\right) \xdd 
++ \bm\xi_{\Gb}(\x,\xd)  = - \nabla_\x \Phi(\x) - \Bb(\x,\xd)\xd,
+\end{align}
+where
+
+\ifLONG{ let $\gb_{i}(\x,\xd)$ be the $i$th column of $\Gb(\x,\xd)$ and we define}\fi 
+
+
+\begin{align}
+\bm\Xi_{\Gb}(\x,\xd) &\coloneqq \textstyle \frac{1}{2} \sum_{i=1}^m  \dot{x}_i \partial_{\xd} \gb_{i}(\x,\xd)  \label{eq:Xi} \\
+\bm\xi_{\Gb}(\x,\xd) &\coloneqq \textstyle {\Gb}{\x}(\x,\xd) \xd - \frac{1}{2} \nabla_\x (\xd^\t )
+%\Gb(\x,\xd) \xd) 
+%\label{eq:xi}
+\end{align}
+
+%$\bm\Xi_{\G}(\x,\xd) \coloneqq \frac{1}{2} \sum_{i=1}^m  \dot{x}_i \partial_{\xd} \gb_{i}(\x,\xd)$, $\bm\xi_{\G}(\x,\xd) \coloneqq  \sdot{\Gb}{\x}(\x,\xd) \xd - \frac{1}{2} \nabla_\x (\xd^\t \Gb(\x,\xd) \xd)$, and
+%$\sdot{\Gb}{\xb}(\x,\xd) \coloneqq  [\partial_{\x}  \gb_{i} (\x,\xd) \xd]_{i=1}^m$. 
+%%
+%We refer to $\Gb(\x,\xd)$ as the \emph{metric} matrix,
+%$\B(\x,\xd)$ as the \emph{damping} matrix, and $\Phi(\x)$ as the \emph{potential} function which is lower-bounded. 
+%In addition, we define $\Mb(\x, \xd) \coloneqq \Gb(\x,\xd) + \bm\Xi_{\G}(\x,\xd)$ as the \emph{inertia} matrix, which can be asymmetric.
+%We say a GDS is \emph{non-degenerate} if $\M(\x,\xd) $ is nonsingular. We will assume~\eqref{eq:GDS} is non-degenerate so that it uniquely defines a differential equation and discuss the general case in Appendix~\ref{app:GDSs}.
+%$\Gb(\x,\xd)$ induces a metric of $\xd$, %(on the tangent bundle of $\MM$ to be specific)
+%measuring its length as $\frac{1}{2} \xd^\t \Gb(\x,\xd) \xd$. 
+%When $\Gb(\x,\xd)$ depends on $\x$ and $\xd$, it also induces the \emph{curvature} terms $\bm\Xi(\x,\xd)$ and $\bm\xi(\x,\xd)$. 
+%In a particular case when $\G(\x,\xd) = \G(\x)$, the GDSs reduce to the widely studied \emph{simple mechanical systems} (SMSs)~\cite{bullo2004geometric},
+%$\Mb(\x) \xdd 
+%+  \C(\x,\xd)\xd + \nabla_\x \Phi(\x) = -\Bb(\x,\xd)\xd$; in this case $\Mb(\x) = \Gb(\x)$
+%and the Coriolis force $\Cb(\x,\xd) \xd$ is equal to $\bm\xi_{\Gb}(\x,\xd)$.
+%%\end{align}
+%%where we note that $\sdot{\Gb}{\x}(\x,\xd) = \dot{\Gb}(\x, \xd)$ in $\bm\xi_{\Gb}(\x,\xd)$ due to $\Gb(\x,\xd) = \G(\x)$.  
+%%By Lemma~\ref{lm:compact writing of Coriolis force}, 
+%%As $\bm\xi_\G(\x,\xd) = \Cb_\Gb(\x,\xd) \xd$ in this case,~\eqref{eq:simple mechanical systems} indeed is equivalent to~\eqref{eq:GDS}.
+%The extension to velocity-dependent $\G(\x,\xd)$ is important and non-trivial. 
+%As discussed in Section~\ref{sec:example RMPs}, it generalizes the dynamics of classical rigid-body systems, allowing the space to morph according to the velocity direction. 
+%
+%
+%As its name suggests, GDSs possess geometric properties. Particularly, when $\Gb(\x,\xd)$ is invertible, the left-hand side of~\eqref{eq:GDS} is related to a quantity $\ab_{\G} = \xdd + \Gb(\x,\xd)^{-1} ( \bm\Xi_{\G}(\x,\xd) \xdd 
+%+ \bm\xi_{\G}(\x,\xd) ) $, known as the \emph{geometric acceleration} (cf. Section~\ref{sec:geometric properties}). 
+%%Therefore, these terms must not be separated; e.g. $\Gb(\x,\xd)  \xdd $ alone does not have particular meaning. 
+%In short, we can think of~\eqref{eq:GDS} as setting $\ab_{\G}$ along the negative natural gradient $-\G(\x,\xd)^{-1}\nabla_\x \Phi(\x)$ while imposing damping $-\G(\x,\xd)^{-1}\Bb(\x,\xd)\xd$.
+%]
+%%\newcommand{\GDSintuition}{
+%%As the name, GDS, suggests, the differential equation in~\eqref{eq:GDS} possesses geometric properties. Particular, in the non-degenerate case, the left-hand side of~\eqref{eq:GDS} is closely related to a  quantity $\ab_{\G} = \xdd + \Gb(\x,\xd)^{-1} ( \bm\Xi_{\G}(\x,\xd) \xdd 
+%%+ \bm\xi_{\G}(\x,\xd) ) $, known as the \emph{geometric acceleration} with respect to the metric matrix $\Gb(\x,\xd)$ (see Section~\ref{sec:geometric properties}). 
+%%%These terms together defines a natural acceleration on $\MM$, when we use $\Gb(\x,\xd)$ as a metric on the tangent bundle of the manifold $\MM$ (see Section~\ref{sec:geometric properties}). 
+%%Therefore, these terms must not be separated; e.g. $\Gb(\x,\xd)  \xdd $ alone does not have particular meaning. 
+%%In short, we can roughly think \eqref{eq:GDS} as setting the geometric acceleration $\ab_{\G}$ in the negative natural gradient direction $\G(\x,\xd)^{-1}\nabla_\x \Phi(\x)$ while imposing damping $-\G(\x,\xd)^{-1}\Bb(\x,\xd)\xd$.
+%%}
+%%\ifLONG 
+%%\GDSintuition
+%%\fi 
+%
+%\section{Properties}
+%
+%\vspace{-4mm}
+%\subsection{Closure} \label{sec:consistency}
+%\vspace{-2mm}
+%
+%%One important feature of \flow is the preservation of task consistency. 
+% % in Section~\ref{sec:RMP algebra}
+%%\ifLONG{ 
+%	Earlier, we mentioned that by tracking the geometry in \pullback in~\eqref{eq:natural pullback}, the task properties can be preserved. Here, we %}\else{ We }\fi 
+%%%
+%formalize the consistency of \flow as a closure of differential equations, named structured GDSs. Structured GDSs augment GDSs with information on how the metric matrix factorizes. 
+%%Specifically, s
+%Suppose $\Gb$ has a structure $\SS$ that factorizes $\G(\x,\xd) = \J(\x)^\t \Hb(\y,\yd) \J(\x)$, where %$\M: \R^m \to \R^{m\times m }_+$, 
+%$\y: \x \mapsto \y(\x) \in \R^n$  and $\Hb: \R^n \times \R^n \to \R^{n\times n}_+$, and $\J(\x) = \partial_\x \y$. 
+%We say the tuple $(\MM, \G, \B, \Phi)_{\SS}$ is a \emph{structured GDS} if and only if
+%\begin{align} \label{eq:structured GDS}
+%\left(\Gb(\x,\xd) + \bm\Xi_{\G}(\x,\xd)\right) \xdd 
+%+ \bm\eta_{\G;\SS}(\x,\xd)  = - \nabla_\x \Phi(\x) - \Bb(\x,\xd)\xd 
+%\end{align}
+%where
+%$
+%\bm\eta_{\G;\SS}(\x,\xd) 
+%\coloneqq  \J(\x)^\t ( \bm\xi_{\Hb}(\y,\yd) + 
+%(\Hb(\y,\dot\y) + \bm\Xi_{\Hb}(\y,\yd) ) 
+%\dot\J(\x,\xd) \xd  )
+%$. 
+%Note the metric and factorization \emph{in combination} defines $\bm\eta_{\G;\SS}$. % (the differential equation in~\eqref{eq:structured GDS}.
+%% and  $\bm\Xi_{\G}(\x,\xd)  = \J^\t(\x) \bm\Xi_{\Hb}(\y,\yd) \J(\x) $. 
+%As a special case, GDSs are  structured GDSs with a \emph{trivial} structure (i.e. $\y =\x$). Also, structured GDSs reduce to GDSs (i.e. the structure offers no extra information) if $\G(\x,\xd)=\G(\x)$, or if $n,m=1$ (cf. Appendix~\ref{app:proof of consistency}).  
+%Given two structures, we say $\SS_a$ \emph{preserves} $\SS_b$ if $\SS_a$ has the factorization (of $\Hb$) made by $\SS_b$.
+%In Section~\ref{sec:geometric properties}, we will show that structured GDSs are related to a geometric object, pullback connection, which turns out to be the coordinate-free version of \pullback.
+%
+%
+%\ifLONG{Below we show the closure property: when the children of a parent node are structured GDSs, the parent node defined by \pullback is also a structured GDS with respect to the pullbacked structured metric matrix, damping matrix, and potentials.}\fi
+%\ifLONG{ Without loss of generality, }\else{To show the closure property, }\fi we consider a parent node on $\MM$ with $K$ child nodes on $\{\NN_i\}_{i=1}^K$. \ifLONG{ We omit the functions' input arguments for short, but we }\else{ We }\fi note that $\G_i$ and $\B_i$ can be functions of both $\y_i$ and $\yd_i$. \vspace{-4mm}
+%\begin{restatable}{theorem}{theoremConsistency} \label{th:consistency}
+%Let the $i$th child node follow $(\NN_i, \G_i, \B_i, \Phi_i)_{\SS_i}$ and have coordinate $\y_i$. 
+%Let $\fb_i = -\bm\eta_{\G_i;\SS_i} - \nabla_{\y_i} \Phi_i - \B_{i}\yd_i $ and $\M_i =\G_i + \bm\Xi_{\G_i}$.
+%If $[\fb,\Mb]^\MM$ of the parent node is given by \emph{\pullback} with $\{[\fb_i, \M_i]^{\NN_i} \}_{i=1}^K$ and $\Mb$ is non-singular, the parent node
+%follows %the \emph{pullback structured GDS}
+%$(\MM, \G, \B, \Phi)_\SS$, 
+%where $\Gb = \sum_{i=1}^{K}\J_i^\t\G_i\J_i$, $\B = \sum_{i=1}^{K}\J_i^\t \B_i \J_i$, $\Phi =  \sum_{i=1}^{K}\Phi_i \circ \y_i $, $\SS$ preserves $\SS_i$, and $\J_i = \partial_\x \y_i$.
+%%That is, the parent node is $(\ab, \M)^{\MM}$ such that  $\M = \sum_{i=1}^{K}\J_i^\t (\G_i+\bm\Xi_{\G_i} )\J_i$ and
+%%\ifLONG
+%%\begin{align*}\textstyle
+%%\ab = \argmin_{\xdd} \sum_{i=1}^{K} \frac{1}{2} \norm{\J_i \xdd + \dot\J_i \xd - \ab_i}_{\M_i}^2 = \left(\Gb + \bm\Xi_{\G}\right)^\dagger \left( 
+%%- \bm\eta_{\G;\SS}  - \nabla_\x \Phi - \Bb\xd  \right)
+%%\end{align*}
+%%\else
+%%$
+%%\ab = \argmin_{\ab'} \sum_{i=1}^{K} \frac{1}{2} \norm{\J_i \ab' + \dot\J_i \xd - \ab_i}_{\M_i}^2 = \left(\Gb + \bm\Xi_{\G}\right)^\dagger \left( 
+%%- \bm\eta_{\G;\SS}  - \nabla_\x \Phi - \Bb\xd  \right)
+%%$
+%%\fi
+%Particularly, if $\G_i$ is velocity-free and the child nodes are GDSs, the parent node follows $(\MM, \G, \B, \Phi)$.
+%\end{restatable}
+%\noindent Theorem~\ref{th:consistency} shows structured GDSs are closed under \pullback. 
+%%This is an important property with both practical and theoretical values. Practically, 
+%It means that the differential equation of a structured GDS with a tree-structured task map can be computed by recursively applying \pullback from the leaves to the root. %In each recursive step, the form of structured GDS is preserved by \pullback. %; when $\G$ is velocity-free, \pullback also preserves GDSs.
+%\begin{corollary}\label{cr:consistency}
+%If all leaf nodes follow GDSs and $\Mb_r$ at the root node is nonsingular, then the root node follows $(\CC, \G, \B, \Phi)_{\SS}$ as recursively defined by Theorem~\ref{th:consistency}.
+%\end{corollary}\vspace{-2mm}
+%
+%%Moreover, it implies that certain coordinate-free form of \flow is available. 
+%
+%
+%%We will further investigate these properties in the following sections.
+%
+%%Borrowing terminologies from mechanics, we call $\M(\x,\xd)$ the \emph{mass matrix} and therefore we can interpret the GDS as forces $- \bm\xi_{\G}  - \nabla_\x \Phi - \Bb\xd$ acting on a particle with mass $\M$. 
+%%When $\G(\x,\xd)$ depends also on velocity,  $\M(\x,\xd)$ would change due to the curvature of $\G(\x,\xd)$.
+%
+%\vspace{-4mm}
+%\subsection{Stability} \label{sec:stability}
+%\vspace{-2mm}
+%
+%By the closure property above, we analyze the stability of \flow  when the leaf nodes are (structured) GDSs. For compactness, we will abuse the notation to write $\Mb = \Mb_r$. Suppose $\Mb$ is nonsingular and let $(\CC, \G, \B, \Phi)_{\SS}$ be the resultant structured GDS at the root node. 
+%%To investigate the stability, 
+%We consider a Lyapunov candidate
+%%\begin{align} \label{eq:Lypunov candidate}
+%%\textstyle
+%$V(\q, \qd) = \frac{1}{2} \qd^\t \G(\q,\qd) \qd + \Phi(\q)$
+%and derive its rate using properties of structured GDSs.
+% % (proved in Appendix~\ref{app:proof of Lyapunov time derivative}).
+%\begin{restatable}{proposition}{propositionLyapunovTimeDerivative}
+% \label{pr:Lyapunov time derivative}
+%%If $\Gb(\q,\qd) + \bm\Xi_{\G}(\q,\qd)$ is nonsingular
+%For $(\CC, \G, \B, \Phi)_{\SS}$,  $\dot\V(\q,\qd) = - \qd^\t \B(\q,\qd) \qd$. 
+%\end{restatable}\vspace{-1mm}
+%\noindent Proposition~\ref{pr:Lyapunov time derivative} directly implies the stability of structured GDSs by invoking LaSalle's invariance principle~\cite{khalil1996noninear}. Here we summarize the result without proof.
+%\begin{corollary} \label{cr:stability}
+%For $(\CC, \G, \B, \Phi)_{\SS}$, if $\G(\q,\qd), \B(\q,\qd) \succ 0 $,  the system converges to a forward invariant set $\CC_\infty \coloneqq \{(\q,\qd) : \nabla_\q \Phi(\q) = 0, \qd = 0 \}$. 
+%\end{corollary}\vspace{-1mm}
+%To show the stability of \flow, we need to further check when the assumptions in Corollary~\ref{cr:stability} hold. 
+%The condition  $\B(\q,\qd) \succ 0 $ is easy to satisfy: by Theorem~\ref{th:consistency},  %$\B(\q,\qd)$ has the form $\sum_{i=1}^{K} \J_i(\q)^\t \B_i(\x_i,\xd_i) \J_i(\q)$\ifLONG{, where $\x_i$ is the coordinate of the $i$th child node of the root node. }\fi. Therefore, it automatically satisfies 
+%$\B(\q,\qd) \succeq 0$; to strictly ensure definiteness, we can copy $\CC$ into an additional child node with a (small) positive-definite damping matrix. The condition on $\Gb(\q,\qd) \succ 0 $ can be satisfied similarly.
+%%based on a similar argument about $\B(\q,\qd)$. 
+%%, we see that $\Gb(\q,\qd) \succeq 0 $ and it can be made  positive definite by copying $\CC$. 
+%In addition, we need to verify the assumption that $\M$ is nonsingular. Here we provide a sufficient condition. When satisfied, it implies the global stability of \flow. % in the sense of Corollary~\ref{cr:stability}. 
+%\vspace{-1mm}
+%\begin{restatable}{theorem}{theoremVelocityMetric}
+%\label{th:condition on velocity metric}
+%Suppose every leaf node is a GDS with a metric matrix in the form
+%$\Rb(\x) +  \Lb(\x)^\t \D(\x, \xd) \Lb(\x)$ for differentiable functions $\Rb$, $\Lb$, and $\D$ satisfying
+%\ifLONG
+%\begin{align*}
+%\Rb(\x) \succeq 0,\qquad \D(\x,\xd) = \diag
+%((d_{i}(\x,\dot{y}_i))_{i=1}^n) \succeq 0, \qquad \dot{y}_i \partial_{\dot{y}_i} d_{i}(\x,\dot{y}_i) \geq 0 
+%\end{align*}
+%\else
+%$\Rb(\x) \succeq 0$, $\D(\x,\xd) = \diag
+%((d_{i}(\x,\dot{y}_i))_{i=1}^n) \succeq 0$, and $ \dot{y}_i \partial_{\dot{y}_i} d_{i}(\x,\dot{y}_i) \geq 0$,
+%\fi
+%where $\x$ is the coordinate of the leaf-node manifold and $\yd = \Lb \xd \in \R^n$. 
+%It holds $\bm\Xi_\G(\q,\qd) \succeq 0$. If further $\G(\q,\qd), \B(\q,\qd) \succ 0$, then $\M\in\R^{d\times d}_{++}$, and the global RMP generated by \flow converges to the forward invariant set $\CC_\infty$ in Corollary~\ref{cr:stability}.
+%\end{restatable}\vspace{-1mm}
+%\noindent A particular condition in Theorem~\ref{th:condition on velocity metric} is when all the leaf nodes with velocity dependent metric are 1D. Suppose $x\in\R$ is its coordinate and $g(x,\dot{x})$ is its metric matrix. The sufficient condition essentially boils down to $g(x,\dot{x})\geq0$ and $\dot{x} \partial_{\dot{x}} g(x,\dot{x})\geq 0 $. This means that, given any  $x \in \R$, $g(x,0) = 0$, $g(x,\dot{x})$ is non-decreasing when $\dot{x}>0$, and non-increasing when $\dot{x}<0$. 
+%This condition is satisfied by the collision avoidance policy in Section~\ref{sec:example RMPs}.
+%
+%\vspace{-4mm}
+%\subsection{Invariance }  \label{sec:geometric properties}
+%\vspace{-2mm}
+%
+%\newcommand{\lsup}[2]{^{\scriptstyle #2}{#1}}
+%\newcommand{\pr}{\mathrm{pr}}
+%\newcommand{\ppartial}[1]{\frac{\partial}{\partial #1}}
+%\def\conn{\lsup{\nabla}{G}}
+%\newcommand{\Conn}[1]{\lsup{\nabla}{#1}}
+%\def\d{\mathrm{d}}
+%
+%We now discuss the coordinate-free geometric properties of $(\CC, \G, \B, \Phi)_\SS$ generated by  \flow. Due to space constraint, we only summarize the results 
+%%without giving  definitions of common differential geometric objects 
+%(please see  Appendix~\ref{app:coordinate-free notation} and,
+%e.g.,~\cite{lee2009manifolds}). Here we assume that $\G$ is positive-definite. % so that the Riemannian metric is well-defined.
+%
+%We first present the coordinate-free version of GDSs (i.e. the structure is trivial) by using a geometric object called \emph{affine connection}, which defines how tangent spaces on a manifold are related.
+%Let $T\CC$ denote the tangent bundle of $\CC$, which is a natural manifold to describe the state space. %of second-order differential equations on $\CC$. 
+%%
+%We first show that a GDS on $\CC$ can be written in terms of a unique, asymmetric affine connection $\conn$ that is compatible with a Riemannian metric $G$ (defined by $\G$) on $T\CC$. It is important to note that $G$ is defined on $T\CC$ \emph{not} the original manifold $\CC$. As the metric matrix in a GDS can be velocity dependent, we need a larger manifold.
+%
+%
+%\begin{restatable}{theorem}{theoremGeometricAcceleration} \label{th:geometric acceleration}
+%Let $G$ be a Riemannian metric on $T\CC$ such that, for $s = (q,v) \in T\CC$,  $G(s) = G^v_{ij}(s) dq^i \otimes  d q^j +  G^a_{ij} dv^i \otimes  dv^j$, where $G^v_{ij}(s)$ and $G^a_{ij}$ are symmetric and positive-definite, and $G^v_{ij}(\cdot)$ is differentiable.
+%Then there is a unique affine connection $\conn$ that is compatible with $G$ and satisfies, 
+%%\ifLONG
+%%for $i,j = 1,\dots,d$ and $k = 1,\dots, 2d$,
+%%\begin{align} \label{eq:asymmetric condition}
+%%\Gamma_{i,j}^k = \Gamma_{ji}^k, \qquad 
+%%\Gamma_{i,j+d}^k = 0,  \qquad 
+%%\Gamma_{i+d,j+d}^k = \Gamma_{j+d,i+d}^k.
+%%\end{align}
+%%\else
+%$\Gamma_{i,j}^k = \Gamma_{ji}^k$, 
+%$\Gamma_{i,j+d}^k = 0$, 
+%and $\Gamma_{i+d,j+d}^k = \Gamma_{j+d,i+d}^k$, for $i,j = 1,\dots,d$ and $k = 1,\dots, 2d$.
+%%\fi
+%%In particular, let $q(t)$ be a curve on $\CC$.  
+%In coordinates, if $G_{ij}^v(\dot{q})$ is identified as $\G(\q,\qd)$, then 
+% $\pr_{3} (\conn_{\ddot{q}} \ddot{q})$ can be written as $\ab_\G \coloneqq \qdd +  \Gb(\q,\qd)^{-1} (\bm\xi_{\G}(\q,\qd) + \bm\Xi_{\G}(\q,\qd) \qdd )$, where $\pr_{3}: (\q,\vb,\ub,\ab) \mapsto \ub$ is a projection.
+%\end{restatable}\vspace{-1mm}
+%\noindent We call $\pr_{3} (\lsup{\nabla}{G}_{\dot{q}} \dot{q})$ the \emph{geometric acceleration} of $q(t)$ with respect to $\conn$. It is a coordinate-free object, because $\pr_{3}$ is defined independent of the choice of chart of $\CC$. By Theorem~\ref{th:geometric acceleration}, it is clear that a GDS can be written abstractly as 
+%%\begin{align} \label{eq:GDS abstract}
+%$ \pr_3(\lsup{\nabla}{G}_{\ddot{q}} \ddot{q}) = (\pr_3 \circ G^{\sharp} \circ F) (s)$,
+%%\end{align}
+%where $F: s \mapsto -d\Phi(s) - B(s) $ defines the covectors due to the potential function and damping, and $G^{\sharp} : T^*T\CC \to TT\CC$  denotes the inverse of $G$. In coordinates, %\eqref{eq:GDS abstract}
+%it reads as 
+%$
+%\qdd +  \Gb(\q,\qd)^{-1} (\bm\xi_{\G}(\q,\qd) + \bm\Xi_{\G}(\q,\qd) \qdd )  =  -\Gb(\q,\qd)^{-1} (\nabla_\q \Phi(\q) + \Bb(\q,\qd)\qd )
+%$, which is exactly~\eqref{eq:GDS}.
+%
+%Next we present a coordinate-free representation of \flow.
+%\vspace{-1mm}
+%\begin{restatable}{theorem}{theoremAbstractConsistency}\label{th:consistency abstract}
+%%Consider a parent node on $\MM$ with $K$ child nodes given by $\{\psi_i: \MM \to \NN_i\}_{i=1}^K$. Suppose the $i$th child node on $\NN_i$ has an affine connection $\Conn{G_i}$ on $T \NN_i$, as defined in Theorem~\ref{th:geometric acceleration}, and a covector function $F_i$ defined as $F$ above. %in~\eqref{eq:GDS abstract}. 
+%Suppose $\CC$ is related to $K$ leaf-node task spaces by maps $\{\psi_i: \CC \to \TT_i\}_{i=1}^K$ and  the $i$th task space $\TT_i$ has an affine connection $\Conn{G_i}$ on $T \TT_i$, as defined in Theorem~\ref{th:geometric acceleration}, and a covector function $F_i$ defined by some potential and damping as described above. %in~\eqref{eq:GDS abstract}. 
+%Let $\lsup{\bar{\nabla}}{G} = \sum_{i=1}^{K} T\psi_i^* {\Conn{G_i}}$ be the pullback connection, $G = \sum_{i=1}^K T\psi_i^* G_i$ be the pullback metric, and $F = \sum_{i=1}^{K} T\psi_i^* F_i$ be the pullback covector, where $T\psi_i^*: T^*T\TT_i \to T^*T\CC$. 
+%Then $\lsup{\bar{\nabla}}{G}$ is compatible with $G$, and 
+%$\pr_{3} (\lsup{\bar{\nabla}}{G} _{\ddot{q}} \ddot{q})=  (\pr_3 \circ G^{\sharp} \circ F) (s) $ can be written as $ \qdd +  \Gb(\q,\qd)^{-1} (\bm\eta_{\G;\SS}(\q,\qd) + \bm\Xi_{\G}(\q,\qd) \qdd ) =  -\Gb(\q,\qd)^{-1} (\nabla_\q \Phi(\q) + \Bb(\q,\qd)\qd )$.
+%In particular, if $G$ is velocity-independent, then $\lsup{\bar{\nabla}}{G} = \conn$.
+%% and $F = \sum_{i=1}^{K} T\psi_i^* F_i$ in \eqref{eq:GDS abstract}. 
+%\end{restatable}\vspace{-1mm}
+%\noindent Theorem~\ref{th:consistency abstract} says that the structured GDS $(\CC, \G, \B, \Phi)_\SS$ can be written abstractly, without coordinates, using the pullback of task-space covectors, metrics, and asymmetric affine connections (that are defined in Theorem~\ref{th:geometric acceleration}).
+%In other words, the recursive calls of \pullback in the backward pass of \flow is indeed performing ``pullback'' of geometric objects. 
+%%This pullback connection  $\lsup{\bar{\nabla}}{G}$ on $T\CC$ results from 
+%%In \flow, we can think that the leaf nodes define the asymmetric affine connections, and \flow performs \pullback to pullback those connections onto $\CC$ to define $\lsup{\bar{\nabla}}{G}$.
+%Theorem~\ref{th:consistency abstract} also shows, when $G$ is velocity-independent, the pullback of connection and the pullback of metric commutes.
+%%the pullback of the connection with respect to a metric and the connection with respect to the pullback metric are equivalent.
+%%This is not rather surprising, as 
+%In this case, $\lsup{\bar{\nabla}}{G} = \conn$, which is equivalent to the Levi-Civita connection of $G$. The loss of commutativity in general is due to the asymmetric definition of the connection in Theorem~\ref{th:geometric acceleration}, which however is necessary to derive a control law of acceleration, without further referring to  higher-order time derivatives. 
+%
+%

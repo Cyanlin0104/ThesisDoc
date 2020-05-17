@@ -1,0 +1,218 @@
+% last update: 2018-06-10
+% created by Ching-An Cheng
+
+% PACKAGES
+% math
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{thmtools,thm-restate}
+% algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+% ref
+%\usepackage{natbib}
+% misc
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{comment}
+%\usepackage[latin1]{inputenc} % for German
+
+
+% EDITS
+%\newcommand{\todo}[1]{{\leavevmode\color{red}TODO: #1}}
+\newcommand{\rev}[1]{{\leavevmode\color{blue}#1}}
+
+% SHORTCUTS
+% theorem setting
+\renewcommand\qedsymbol{$\blacksquare$}
+
+%\theoremstyle{plain}
+%\newtheorem{lemma}{Lemma}[section]
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{proposition}{Proposition}[section]
+%\newtheorem{corollary}{Corollary}[section]
+
+%\theoremstyle{definition}
+%newtheorem{definition}{Definition}[section]
+%\newtheorem{example}{Example}[section]
+
+%\theoremstyle{remark}
+%\newtheorem{remark}{Remark}[section]
+\newtheorem{assumption}{Assumption}[section]
+
+\newenvironment{proofsketch}{\textit{Proof sketch:}}{\qed \par}
+
+
+% fonts
+\def\AA{\mathcal{A}}\def\BB{\mathcal{B}}\def\CC{\mathcal{C}}
+\def\DD{\mathcal{D}}\def\EE{\mathcal{E}}\def\FF{\mathcal{F}}
+\def\GG{\mathcal{G}}\def\HH{\mathcal{H}}\def\II{\mathcal{I}}
+\def\JJ{\mathcal{J}}\def\KK{\mathcal{K}}\def\LL{\mathcal{L}}
+\def\MM{\mathcal{M}}\def\NN{\mathcal{N}}\def\OO{\mathcal{O}}
+\def\PP{\mathcal{P}}\def\QQ{\mathcal{Q}}\def\RR{\mathcal{R}}
+\def\SS{\mathcal{S}}\def\TT{\mathcal{T}}\def\UU{\mathcal{U}}
+\def\VV{\mathcal{V}}\def\WW{\mathcal{W}}\def\XX{\mathcal{X}}
+\def\YY{\mathcal{Y}}\def\ZZ{\mathcal{Z}}
+
+\def\Ab{\mathbf{A}}\def\Bb{\mathbf{B}}\def\Cb{\mathbf{C}}
+\def\Db{\mathbf{D}}\def\Eb{\mathbf{E}}\def\Fb{\mathbf{F}}
+\def\Gb{\mathbf{G}}\def\Hb{\mathbf{H}}\def\Ib{\mathbf{I}}
+\def\Jb{\mathbf{J}}\def\Kb{\mathbf{K}}\def\Lb{\mathbf{L}}
+\def\Mb{\mathbf{M}}\def\Nb{\mathbf{N}}\def\Ob{\mathbf{O}}
+\def\Pb{\mathbf{P}}\def\Qb{\mathbf{Q}}\def\Rb{\mathbf{R}}
+\def\Sb{\mathbf{S}}\def\Tb{\mathbf{T}}\def\Ub{\mathbf{U}}
+\def\Vb{\mathbf{V}}\def\Wb{\mathbf{W}}\def\Xb{\mathbf{X}}
+\def\Yb{\mathbf{Y}}\def\Zb{\mathbf{Z}}\def\0b{\mathbf{0}}
+
+\def\ab{\mathbf{a}}\def\bb{\mathbf{b}}\def\cb{\mathbf{c}}
+\def\db{\mathbf{d}}\def\eb{\mathbf{e}}\def\fb{\mathbf{f}}
+\def\gb{\mathbf{g}}\def\hb{\mathbf{h}}\def\ib{\mathbf{i}}
+\def\jb{\mathbf{j}}\def\kb{\mathbf{k}}\def\lb{\mathbf{l}}
+\def\mbb{\mathbf{m}}
+\def\nb{\mathbf{n}}\def\ob{\mathbf{o}}
+\def\pb{\mathbf{p}}\def\qb{\mathbf{q}}\def\rb{\mathbf{r}}
+\def\sbb{\mathbf{s}} % some conflicts with url
+\def\tb{\mathbf{t}}\def\ub{\mathbf{u}}
+\def\vb{\mathbf{v}}\def\wb{\mathbf{w}}\def\xb{\mathbf{x}}
+\def\yb{\mathbf{y}}\def\zb{\mathbf{z}}
+
+\def\Abb{\mathbb{A}}\def\Bbb{\mathbb{B}}\def\Cbb{\mathbb{C}}
+\def\Dbb{\mathbb{D}}\def\Ebb{\mathbb{E}}\def\Fbb{\mathbb{F}}
+\def\Gbb{\mathbb{G}}\def\Hbb{\mathbb{H}}\def\Ibb{\mathbb{I}}
+\def\Jbb{\mathbb{J}}\def\Kbb{\mathbb{K}}\def\Lbb{\mathbb{L}}
+\def\Mbb{\mathbb{M}}\def\Nbb{\mathbb{N}}\def\Obb{\mathbb{O}}
+\def\Pbb{\mathbb{P}}\def\Qbb{\mathbb{Q}}\def\Rbb{\mathbb{R}}
+\def\Sbb{\mathbb{S}}\def\Tbb{\mathbb{T}}\def\Ubb{\mathbb{U}}
+\def\Vbb{\mathbb{V}}\def\Wbb{\mathbb{W}}\def\Xbb{\mathbb{X}}
+\def\Ybb{\mathbb{Y}}\def\Zbb{\mathbb{Z}}
+
+\def\Af{\mathfrak{A}}\def\Bf{\mathfrak{B}}\def\Cf{\mathfrak{C}}
+\def\Df{\mathfrak{D}}\def\Ef{\mathfrak{E}}\def\Ff{\mathfrak{F}}
+\def\Gf{\mathfrak{G}}\def\Hf{\mathfrak{H}}\def\If{\mathfrak{I}}
+\def\Jf{\mathfrak{J}}\def\Kf{\mathfrak{K}}\def\Lf{\mathfrak{L}}
+\def\Mf{\mathfrak{M}}\def\Nf{\mathfrak{N}}\def\Of{\mathfrak{O}}
+\def\Pf{\mathfrak{P}}\def\Qf{\mathfrak{Q}}\def\Rf{\mathfrak{R}}
+\def\Sf{\mathfrak{S}}\def\Tf{\mathfrak{T}}\def\Uf{\mathfrak{U}}
+\def\Vf{\mathfrak{V}}\def\Wf{\mathfrak{W}}\def\Xf{\mathfrak{X}}
+\def\Yf{\mathfrak{Y}}\def\Zf{\mathfrak{Z}}
+
+% math 
+\def\R{\Rbb}
+\def\Q{\Qbb}\def\Z{\Zbb}\def\N{\Nbb}
+%\def\C{\Cbb}
+%\def\one{{\mathbbm1}}
+\def\GP{\GG\PP}
+\def\K{\mathcal{K}}
+\def\der{\mathrm{d}}
+\def\zinf{[0, \infty) }
+\def\afsystem{\dot{x}  =f(x) + g(x)u}
+\def\const{\mathrm{const.}}
+\def\diag{\mathrm{diag}}
+\def\bdiag{\mathrm{blkdiag}}
+\def\mvec{\mathrm{vec}}
+\def\t{\top}
+\def\*{\star}
+
+
+\newcommand{\norm}[1]{ \| #1 \|  }
+\newcommand{\abs}[1]{ \left| #1 \right|  }
+\newcommand{\tr}[1]{ \mathrm{tr}\left( #1\right)}
+\newcommand{\lr}[2]{ \left\langle #1, #2 \right\rangle}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+
+% online learning
+\def\regret{\textrm{Regret}}
+
+% statistics
+\newcommand{\KL}[2]{D_{KL}(#1, #2)} %\newcommand{\KL}[2]{KL[#1 || #2  ]}
+\newcommand{\TV}[2]{D_{TV}(#1, #2)}
+\newcommand{\HE}[2]{D_{H}(#1, #2)}
+\newcommand{\WA}[2]{D_{W}(#1, #2)}
+\newcommand{\FD}[2]{D_{f}(#1, #2)}
+\newcommand{\E}{\Ebb}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+
+
+%% Below is the code for optionally collecting all the proofs at the end
+%% source: https://tex.stackexchange.com/questions/33229/how-to-place-all-proofs-automatically-in-appendix
+%\usepackage{etex,etoolbox}
+%%\usepackage{amsthm,amssymb}
+%%\usepackage{thmtools}
+%\usepackage{environ}
+%
+%\makeatletter
+%\providecommand{\@fourthoffour}[4]{#4}
+%% We define an addition for the theorem-like environments; when
+%% \newtheorem{thm}{Theorem} is declared, the macro \thm expands
+%% to {...}{...}{...}{Theorem} and with \@fourthoffour we access
+%% to it; then we make available \@currentlabel (the theorem number)
+%% also outside the environment.  
+%\newcommand\fixstatement[2][\proofname\space of]{%
+%	\ifcsname thmt@original@#2\endcsname
+%	% the theorem has been declared with \declaretheorem
+%	\AtEndEnvironment{#2}{%
+%		\xdef\pat@label{\expandafter\expandafter\expandafter
+%			\@fourthoffour\csname thmt@original@#2\endcsname\space\@currentlabel}%
+%		\xdef\pat@proofof{\@nameuse{pat@proofof@#2}}%
+%	}%
+%	\else
+%	% the theorem has been declared with \newtheorem
+%	\AtEndEnvironment{#2}{%
+%		\xdef\pat@label{\expandafter\expandafter\expandafter
+%			\@fourthoffour\csname #1\endcsname\space\@currentlabel}%
+%		\xdef\pat@proofof{\@nameuse{pat@proofof@#2}}%
+%	}%
+%	\fi
+%	\@namedef{pat@proofof@#2}{#1}%
+%}
+%
+%% We allocate a block of 1000 token registers; in this way \prooftoks
+%% is 1000 and we can access the following registers of the block by
+%% \prooftoks+n (0<n<1000); we'll use a dedicated counter for it
+%% that is stepped at every proof
+%\globtoksblk\prooftoks{1000}
+%\newcounter{proofcount}
+%
+%% We gather the contents of the proof as argument to \proofatend
+%% and then we store
+%% "\begin{proof}[Proof of <theoremname> <theoremnumber>]#1\end{proof}"
+%% in the next token register of the allocated block
+%\NewEnviron{proofatend}{%
+%	\edef\next{%
+%		\noexpand\begin{proof}[\pat@proofof\space\pat@label]%
+%			\unexpanded\expandafter{\BODY}}%
+%		\global\toks\numexpr\prooftoks+\value{proofcount}\relax=\expandafter{\next\end{proof}}
+%	\stepcounter{proofcount}}
+%
+%% \printproofs simply loops over the used token registers of the
+%% block, freeing their contents
+%\def\printproofs{%
+%	\count@=\z@
+%	\loop
+%	\the\toks\numexpr\prooftoks+\count@\relax
+%	\ifnum\count@<\value{proofcount}%
+%	\advance\count@\@ne
+%	\repeat}
+%\makeatother
+%
+%%% Here starts the example, with two theorem declarations
+%%\declaretheorem[style=plain,name=Theorem,qed=$\square$,numberwithin=section]{thm}
+%%%\declaretheorem[style=plain,name=Lemma,qed=$\square$,numberlike=thm]{lem}
+%%%\newtheorem{thm}{Theorem}
+%%\newtheorem{lem}[thm]{Lemma}
+%%\fixstatement{thm}
+%%\fixstatement[Demonstration of]{lem}
+%
+%\fixstatement{lemma}
+%\fixstatement{theorem}
+%\fixstatement{proposition}
+%\fixstatement{corollary}

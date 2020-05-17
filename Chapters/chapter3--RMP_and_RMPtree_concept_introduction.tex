@@ -1,0 +1,190 @@
+\chapter{RMP and RMPtree Concept}
+\label{c:intro}
+
+%Attention plays an important role in human vision. For example, when
+%we look at an image, our eye movements comprise a succession of {\em
+%fixations} (repetitive positioning of eyes to parts of the image)
+%and {\em saccades} (rapid eye jump). Those parts of the image that
+%cause eye fixations and capture primary attention are called {\em
+%regions of interest} (ROIs). Studies in visual attention and eye
+%movement have shown that humans gene	rally only attend to a few ROIs.
+%Detecting these visually attentive regions in images is challenging
+%but useful in many multimedia applications, such as automatic
+%thumbnail cropping, object recognition, content-based image
+%retrieval, adaptive image compression and automatic browsing in
+%small-screen devices.
+%
+%Many algorithms have been proposed for automatic ROI detection in
+%images. Unfortunately, these methods were often evaluated only on
+%specific and small data sets that are not publicly available. The
+%lack of published {\em benchmarks} makes experiments non-repeatable
+%and quantitative evaluation difficult. However, as recommended by
+%the latest ACM SIGMM retreat, repeatable experiments using published
+benchmarks are important for advancing the multimedia research
+field~\cite{Rowe:2005:ASR}.
+
+\section{Preliminary}
+
+Let $\mathbf{q}(t) \in \mathcal{C}  \subset \mathbb{R}^{n}$  denotes the generalized coordinates of the system in the configuration space $ \mathcal{C}$. Typically $\mathbf{q}$ contains the joint angles. 
+Let us assume that there is a task space $\mathcal{T}$ which is a set of non-linear subtask spaces, denotes $\{\mathcal{T}_i\}$, and let $\mathbf{x}_i(t) \in \ \mathcal{T}_{i} \, \subseteq \, \mathbb{R}^{m_i}$ denotes the $m_i$-dimensional task variable in the $i^{th}$  subtask space at time $t$.
+And the differentiable task map $\phi_i : \mathcal{C} \rightarrow \mathcal{T}_i $ relates the configuration space and $i^{th}$ subtask space. For example, if $\mathbf{x}_{i}$ is the position and orientation of the end-effector, then $\phi_{i}$ represents the forward kinematics of the robot.
+
+If we denotes the Jacobian of a task map $\phi$ as
+$\mathbf{J}_{\phi} = \frac{\partial \phi}{\partial  \mathbf{q}} \in \mathbb{R}^{k \times d},$ 
+then the task space velocity and acceleration are given by
+\begin{equation}
+\dot{\mathbf{x}} = \mathbf{J}_{\phi}\dot{\mathbf{q}}
+\end{equation}
+
+\begin{equation}
+\ddot{\mathbf{x}} = \mathbf{J}_{\phi}\ddot{\mathbf{q}} + \dot{\mathbf{J}}_{\phi}\dot{\mathbf{q}}
+\end{equation}
+
+\section{Riemannian Motion Policies}
+
+An Riemannian Motion Policy (RMP) in its \textit{canonical form} is a motion policy denoted by the tuple $(\mathbf{a}, \mathbf{M})^{\mathcal{M}}$, is a motion policy $\mathbf{a}$ in a manifold $\mathcal{M}$ augmented by a Riemannian metric $\mathbf{M}$.
+
+\subsection{Motion Policy}
+A \textit{motion policy} $\mathbf{a} : \mathbf{x}, \dot{\mathbf{x}} \longmapsto \ddot{\mathbf{x}} $ can be seen as a second-order dynamical system in a task space $\mathcal{X}$, which maps position and velocity to acceleration. If task map $\phi$ is the identity map, we can write $\mathbf{a}:\mathbf{q},\dot{\mathbf{q}} \longmapsto \ddot{\mathbf{q}}$ without loss of generality.  
+
+\begin{itemize}
+
+\item A motion policy $\mathbf{a}$ is given by the user to specify a desire motion of the robot. For example, \textit{Virtual Impedance}, \textit{Collision Avoidance}, \textit{Redundancy Resolution} etc.
+
+
+\item Each motion policy $\mathbf{a}(\mathbf{x}, \dot{\mathbf{x}}) $ is in a specified task space $\mathcal{X}$, For example,  \textit{Target Position dynamics} (e.g. Impedance Control) should be imposed in one of the task space, while \textit{Redundancy Resolution}  typically  takes place in the configuration space.
+
+%% ToDo 
+%% Motion Policies V.S. Trajectory Planning 
+
+\end{itemize}
+Comparing to open-loop trajectory planning methods, motion policy could be considered as a closed-loop motion behavior that depends on current state of the robot. It is obviously to say that closed-loop motion policies are more robust than trajectory planning when the robot is performing tasks in a complicated scenario.
+\subsection{Riemannian Metric}
+
+In Riemannian Geometry, the Riemannian Metric $\mathbf{M}(\mathbf{x}, \dot{\mathbf{x}})$ is a symmetric positive semidefinite matrix defined on the tangent space that measures the inner product between two tangent vectors $\mathbf{u}$ and $\mathbf{v}$ as $\langle \mathbf{u}, \mathbf{v} \rangle_{\mathbf{M}} = \mathbf{u}^T \mathbf{M} \mathbf{v}$. Thus, $\| \mathbf{u}\|^{2}_{\mathbf{M}} = \mathbf{u}^T \mathbf{M} \mathbf{u}$. \\[3mm]
+For example, for a given Riemannian metric $\mathbf{M}$, we have $\dot{\mathbf{x}}^{T} \mathbf{M} \dot{\mathbf{x}} = \dot{\mathbf{q}}^T(\mathbf{J}^T \mathbf{M} \mathbf{J}) \dot{\mathbf{q}}$, therefore,
+
+
+\begin{equation}
+\|\ \dot{\mathbf{x}}  \,\|^2_{\mathbf{M}} = \|\ \dot{\mathbf{q}}  \,\|^2_{\mathbf{M}_r} 
+\end{equation}
+where $\mathbf{M}_r = \,\mathbf{J}^T \mathbf{M} \mathbf{J}$ is the metric in the domain of the map $\phi$ (which is the configuration space $\mathcal{C}$ ) that mimics the metric $\mathbf{M}$ in the codomain (task space $\mathcal{T}$). \\[3mm]
+
+Riemmannian Metric may be roughly viewed as position-velocity dependent \textit{inertia matrix} in Operational Space Control which use only constant inertia matrix in task space and force the external geometry to be Euclidian. $\mathbf{M}$ defines the directional-importance of $\mathbf{a}$ when it is combined with other policies. The state dependency of a inertia matrix turns the task space into non-Euclidian space. Later we will show that $\mathbf{M}$ is close relate to the Riemannian Metric in Riemiannian Geometry.
+
+\subsection{Natural Form RMP}
+To better illustrate the physical meaning of applying RMP algebra which will be discussed later, we additionally introduce a new RMP form, called the \textit{natual form}.  Given an RMP in \textit{canonical form} $(\mathbf{a}, \mathbf{M})^{\mathcal{M}}$, the natural form is a pair $[\mathbf{f}, \mathbf{M}]^{\mathcal{M}}$, where $\mathbf{f} = \mathbf{M}\mathbf{a}$ is the \textit{desired force} map. And conversely, we denote the operation $\mathbf{a} = \mathbf{M}^{\dagger}\mathbf{f}$ as \textit{resolve} which resolves the desired force $\mathbf{f}$ into the motion policy $\mathbf{a}$.
+
+\subsection{RMP-algebra}
+In this section, we define RMP-algebra.
+
+%ToDo example local RMPs
+%ToDo the diffculties of specifying a global task space policy 
+\section{RMP-tree and RMP-algebra}
+
+\textbf{RMP-tree.} We introduce a computational data structure called RMP-tree in which each node represents an RMP and the corresponding state, and each edge is the transformation between manifolds. The root node of the RMP-tree describes the global motion policy on configuration space $\mathcal{C}$, and the leaf nodes corresponds to the local motion policies on $\{\mathcal{T}_i\}$. To illustrate, let us consider a node $n$, suppose it has a child nodes set $\{n_i\}_{i=1}^{K}$, then we write $n=((\mathbf{x}, \dot{\mathbf{x}}), [\mathbf{f}, \mathbf{M}]^{\mathcal{M}})$ and $n_i = ((\mathbf{y}_i, \dot{\mathbf{y}}_i), [\mathbf{f}_i, \mathbf{M}_i]^{\mathcal{N}_i})$, where $\mathcal{N}_i = \psi_{e_i}(\mathcal{M})$ for some $\psi_{e_i}$ denotes the transformation of manifolds. Then we will continue to use this example to introduce how RMP-algebra propagates the information across the RMP-tree. \\[3mm]
+\textbf{RMP-algebra.} Given the tree structure of the RMPs, a unified approach should be proposed to combine the subtask policies at leaf nodes into a global policy on the root node which describes the motion in $\mathcal{C}$. The RMP-algebra consist of three operations
+
+\begin{enumerate}
+\item \textit{pushforward} is the operator that push the state information $(\mathbf{x}, \dot{\mathbf{x}})$ forward from the root node to its child notes. It is similar to the forward kinematics in robotics. For example, for the state $(\mathbf{x}, \dot{\mathbf{x}})$ from node $n$, we write $(\mathbf{y},\dot{\mathbf{y}}) = \textit{pushforward}((\xb, \dot{\xb}))= (\psi_{e_i}(\xb), \Jb_i(\dot{\xb}))$.
+\item \textit{pullback} works on a contrast direction and back propagates \textit{desired forces} and inertia matrices of \textit{natural form} RMPs from notes to the parent node. It computes
+\begin{equation}
+\fb = \sum_{i=1}^{K}\Jb_i^T(\fb_i - \Mb_i\dot{\Jb}_i\dot{\xb})
+\end{equation}
+
+\begin{equation}
+\Mb = \sum_{i=1}^{K}\Jb_i^T\Mb_i\Jb_i
+\end{equation}
+
+Then name "pullback" comes from the linear transformations of the cotangent vector (1-form) $\fb_i-\Mb_i \dot{\Jb}_i\dot{\xb}$ and the inertia matrix (2-form) $\Mb_i$. In summary, velocities can be pushforwarded along the direction of $\psi_{e_i}$ and forces and inertia matrices can be pullbacked in the opposide direction.
+
+\text{By the conservation of energy, we have the \textit{natural force} on the parent node} \\
+
+\begin{equation}
+\begin{aligned}
+\sum_{i=1}^{K}\Jb_i^T\fb_i &= \sum_{i=1}^{K}\Jb_i^T\Mb_i\ab_i \\
+&= \sum_{i=1}^{K}\Jb_i^T\Mb_i(\Jb_i\ddot{\xb}+\dot{\Jb}_i\dot{\xb}) \\
+&=\fb + \sum_{i=1}^{K}\Jb_i^T\Mb_i\dot{\Jb}_i\dot{\xb}
+\end{aligned}
+\end{equation}
+
+Thus, the intuition is that setting $\fb = \sum_{i=1}^{K} \Jb_i^T(\fb_i - \Mb_i\dot{\Jb}_i\dot{\xb})$ physically preserves the energy through back propagation. Moreover, it can be shown that the \textit{canonical form} RMP $(\ab, \Mb)^{\mathcal{M}}$ of the \textit{natural form} $[\fb, \Mb]^{\mathcal{M}}$ above is the solution to the least-squared problem:
+
+\begin{equation}
+\ab = argmin_{\ab'}\sum_{i=1}^{K}\dfrac{1}{2}\|\Jb_i{\ab}'+\dot{\Jb}_i\dot{\xb} - \ab_i\|_{\Mb_i}^2
+\end{equation}
+
+
+\item \textit{resolve} maps an RMP from its natural form to its canonical form. Given the natural form $[\fb, \Mb]^{\mathcal{M}}$, \textit{resolve} computes the canonical form $(\ab, \Mb)^{\mathcal{M}}$ with $\ab = \Mb^{\dagger}\fb$, where $\dagger$ denotes Moore-Penrose inverse.  
+In this example, Given the natural form RMP after \textit{pullback}, we can finally obtain the parent node motion policy $\ab = (\sum_{i=1}^{K}\Jb_i^T\Mb_i\Jb_i)^{\dagger}(\sum_{i=1}^{K}\Jb_i^T\Mb_i(\ab_i-\dot{\Jb}_i\dot{\xb}))$. 
+ 
+\end{enumerate}	
+
+%%ToDo Automatic Motion Policy generation with RMPflow
+%%ToDo add Algorithm figure
+
+
+
+\section{RMP and Multi-priority}
+In this section, we will discuss the ideas of RMP Algebra and provide a theoretical proof to show that RMP Algebra can handle multi-priority problem. \\
+Using the above structure of RMP-tree again, we actually want to show that the \textit{pullback} operator is equivalent to a least-squared 
+	%% to be referenced 
+	problem described in (1.7) 
+
+\begin{equation}
+\begin{aligned}
+\ab &= argmin_{\ab'}\sum_{i=1}^{K}\dfrac{1}{2}\|\Jb_i{\ab}'+\dot{\Jb}_i\dot{\xb} - \ab_i\|_{\Mb_i}^2 \\
+&= argmin_{\ab'}\dfrac{1}{2}\|\Jb_1{\ab}'+\dot{\Jb}_1\dot{\xb} - \ab_1\|_{\Mb_1}^2 + \dfrac{1}{2}\|\Jb_2{\ab}'+\dot{\Jb}_2\dot{\xb} - \ab_2\|_{\Mb_2}^2 + ... \\
+&+ \dfrac{1}{2}\|\Jb_K{\ab}'+\dot{\Jb}_K\dot{\xb} - \ab_K\|_{\Mb_K}^2
+\end{aligned}
+\end{equation}
+
+If one could design $\Mb_i(\xb_i, \dot{\xb}_i)$ has a "large value" when the i-th task is important (or has high priority) in some situation, then the left hand side of (1.8) is exactly the solution that fulfill this weighted consideration.  \\
+
+The remaining problem is to show that applying \textit{pullback} can actually obtain the solution of (1.8)
+
+\begin{proof}
+let $f(\ab) = \sum_{i=1}^{K}\dfrac{1}{2}\|\Jb_i{\ab}+\dot{\Jb}_i\dot{\xb} - \ab_i\|_{\Mb_i}^2$, the optimal is obtained when $\nabla f(\ab) = \0b$
+\begin{align*}
+\nabla(\sum_{i=1}^{K}(\Jb_i\ab+ \Jd_i\xd - \ab_i)^{T}\Mb_i(\Jb_i\ab+ \Jd_i\xd - \ab_i)) &= \0b \\
+%\nabla(\sum_{i-1}^{K}({\ab}^T\Jb_i^T\Mb_i\Jb_i\ab - {\ab}^T\Jb_i^T\Mb_i(\ab_i - \Jd_i\xd) \\ 
+%- (\ab_i - \Jd_i\xd)^T\Mb_i\Jb_i\ab -     
+%(\ab_i - \Jd_i\xd)^T\Mb_i(\ab_i - \Jd_i\xd))) &= \0b 
+\end{align*}
+$\Mb_i$ is p.s.d. then
+\begin{align*}
+(\sum_{i=1}^{K}\Jb_i^T\Mb_i\Jb_i)\ab - \sum_{i=1}^{K}\Jb_i^T\Mb_i(\ab_i - \Jd_i\xd) = \0b  \\
+\ab = (\sum_{i=1}^{K}\Jb_i^T\Mb_i\Jb_i)^{\dagger}(\sum_{i=1}^{K}\Jb_i^T\Mb_i(\ab_i - \Jd_i\xd))
+\end{align*}
+define $\Mb = \sum_{i=1}^{K}\Jb_i^T\Mb_i\Jb_i$, therefore, in the \textit{natural-form} we have 
+\begin{align*}
+\Mb\ab &= \sum_{i=1}^{K}\Jb_i^T\Mb_i(\ab_i - \Jd_i\xd) \\
+\fb &= \sum_{i=1}^{K}\Jb_i^T(\fb_i - \Mb_i\Jd_i\xd)
+\end{align*}
+
+\end{proof}
+
+
+
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.45\textwidth]{kl}
+%\caption{kl-distance}
+%\label{kl}
+%\end{figure}
+
+%\begin{table}[t]
+%\begin{center}
+%\begin{tabular}{lcc}
+%
+%\hline
+%                    &  {\small Itti's method}     & {\small Fuzzy growing}    \\
+%\hline
+%{\small Precision}           &  0.4475    & 0.4506 \\
+%{\small Recall}              &  0.5515    & 0.5542 \\
+%\hline
+%
+%\end{tabular}
+%\caption[Evaluation of FOA sets]{\small Evaluation of FOA sets. } \label{t:FOA}
+%\end{center}
+%\end{table}
